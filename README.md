@@ -59,7 +59,7 @@ TS服务器第一次运行时，会生成一个一次性的权限密钥，用于
 cat /home/teamspeak/logs/ts3server_*  
 如果TS服务器正确运行，你应该能看到类似如下的输出  
 
-2018-04-24 05:15:19.808720|INFO    |ServerLibPriv |   |TeamSpeak 3 Server 3.0.13.6 (2016-11-08 08:48:33)
+2018-04-24 05:15:19.808720|INFO    |ServerLibPriv |   |TeamSpeak 3 Server 3.0.13.6 (2016-11-08 08:48:33)  
 2018-04-24 05:15:19.808834|INFO    |ServerLibPriv |   |SystemInformation: Linux 2.6.32-042stab126.2 #1 SMP Wed Dec 6 18:08:29 MSK 2017 x86_64 Binary: 64bit
 2018-04-24 05:15:19.808873|WARNING |ServerLibPriv |   |The system locale is set to "C" this can cause unexpected behavior. We advice you to repair your locale!
 2018-04-24 05:15:19.808898|INFO    |ServerLibPriv |   |Using hardware aes
