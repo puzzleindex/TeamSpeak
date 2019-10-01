@@ -1,63 +1,63 @@
 # TeamSpeak
-#安装说明
-我用的系统是CentOS7，其他系统的安装方式类似。需要root权限，以下均以root账户输入。
+#安装说明  
+我用的系统是CentOS7，其他系统的安装方式类似。需要root权限，以下均以root账户输入。  
 
-#更新系统和依赖
-'yum -y update'
-'yum -y install nano wget perl tar net-tools bzip2'
-添加用户安装TS
-使用普通用户权限运行TeamSpeak，隔离ts服务端与其他系统服务
+#更新系统和依赖  
+'yum -y update'  
+'yum -y install nano wget perl tar net-tools bzip2'  
+添加用户安装TS  
+使用普通用户权限运行TeamSpeak，隔离ts服务端与其他系统服务  
 
-adduser teamspeak
-passwd teamspeak
-会提示为新建的用户设置密码，这个密码之后不会用到。
-坑点：因为国内ts1汉化的客户端版本不是最新版，不能支持新版服务端，故选择老版本服务端安装。
+adduser teamspeak  
+passwd teamspeak  
+会提示为新建的用户设置密码，这个密码之后不会用到。  
+坑点：因为国内ts1汉化的客户端版本不是最新版，不能支持新版服务端，故选择老版本服务端安装。  
 
-wget http://dl.4players.de/ts/releases/3.0.13.6/teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2
-tar xvf teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2
-cd teamspeak3-server_linux_amd64
-cp * -R /home/teamspeak
+wget http://dl.4players.de/ts/releases/3.0.13.6/teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2  
+tar xvf teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2  
+cd teamspeak3-server_linux_amd64  
+cp * -R /home/teamspeak  
 cd ..
-rm -rf teamspeak3-server_linux_amd64*
-chown -R teamspeak:teamspeak /home/teamspeak
-设置TS服务和防火墙
-nano /lib/systemd/system/teamspeak.service
-在打开的文件编辑器里输入
+rm -rf teamspeak3-server_linux_amd64*  
+chown -R teamspeak:teamspeak /home/teamspeak  
+设置TS服务和防火墙  
+nano /lib/systemd/system/teamspeak.service  
+在打开的文件编辑器里输入  
 
-[Unit]
-Description=Team Speak 3 Server
-After=network.target
-[Service]
-WorkingDirectory=/home/teamspeak/
-User=teamspeak
-Group=teamspeak
-Type=forking
-ExecStart=/home/teamspeak/ts3server_startscript.sh start inifile=ts3server.ini
-ExecStop=/home/teamspeak/ts3server_startscript.sh stop
-PIDFile=/home/teamspeak/ts3server.pid
-RestartSec=15
-Restart=always
-[Install]
-WantedBy=multi-user.target
-Ctrl+O回车保存，Ctrl+E退出
+[Unit]  
+Description=Team Speak 3 Server  
+After=network.target  
+[Service]  
+WorkingDirectory=/home/teamspeak/  
+User=teamspeak  
+Group=teamspeak  
+Type=forking  
+ExecStart=/home/teamspeak/ts3server_startscript.sh start inifile=ts3server.ini  
+ExecStop=/home/teamspeak/ts3server_startscript.sh stop  
+PIDFile=/home/teamspeak/ts3server.pid  
+RestartSec=15  
+Restart=always  
+[Install]  
+WantedBy=multi-user.target  
+Ctrl+O回车保存，Ctrl+E退出  
 
-如果你的服务器打开了防火墙，就需要添加如下规则，对CentOS7上的firewall使用如下命令
+如果你的服务器打开了防火墙，就需要添加如下规则，对CentOS7上的firewall使用如下命令  
 
-firewall-cmd --zone=public --add-port=9987/udp --permanent
-firewall-cmd --zone=public --add-port=10011/tcp --permanent
-firewall-cmd --zone=public --add-port=30033/tcp --permanent
-firewall-cmd --reload
-启动TS服务
-systemctl start teamspeak
-systemctl enable teamspeak
-确保TeamSpeak服务正确运行
+firewall-cmd --zone=public --add-port=9987/udp --permanent  
+firewall-cmd --zone=public --add-port=10011/tcp --permanent  
+firewall-cmd --zone=public --add-port=30033/tcp --permanent  
+firewall-cmd --reload  
+启动TS服务  
+systemctl start teamspeak  
+systemctl enable teamspeak  
+确保TeamSpeak服务正确运行  
+  
+systemctl status teamspeak  
+管理员登陆TS服务器  
+TS服务器第一次运行时，会生成一个一次性的权限密钥，用于给你本地端设置管理员权限。  
 
-systemctl status teamspeak
-管理员登陆TS服务器
-TS服务器第一次运行时，会生成一个一次性的权限密钥，用于给你本地端设置管理员权限。
-
-cat /home/teamspeak/logs/ts3server_*
-如果TS服务器正确运行，你应该能看到类似如下的输出
+cat /home/teamspeak/logs/ts3server_*  
+如果TS服务器正确运行，你应该能看到类似如下的输出  
 
 2018-04-24 05:15:19.808720|INFO    |ServerLibPriv |   |TeamSpeak 3 Server 3.0.13.6 (2016-11-08 08:48:33)
 2018-04-24 05:15:19.808834|INFO    |ServerLibPriv |   |SystemInformation: Linux 2.6.32-042stab126.2 #1 SMP Wed Dec 6 18:08:29 MSK 2017 x86_64 Binary: 64bit
