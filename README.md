@@ -13,7 +13,7 @@ passwd teamspeak
 会提示为新建的用户设置密码，这个密码之后不会用到。  
 坑点：因为国内ts1汉化的客户端版本不是最新版，不能支持新版服务端，故选择老版本服务端安装。  
 
-wget http://dl.4players.de/ts/releases/3.0.13.6/teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2  
+wget https://github.com/puzzleindex/TeamSpeak/raw/master/teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2
 tar xvf teamspeak3-server_linux_amd64-3.0.13.6.tar.bz2  
 cd teamspeak3-server_linux_amd64  
 cp * -R /home/teamspeak  
