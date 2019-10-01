@@ -1,10 +1,10 @@
 # TeamSpeak
-安装说明
+#安装说明
 我用的系统是CentOS7，其他系统的安装方式类似。需要root权限，以下均以root账户输入。
 
-更新系统和依赖
-yum -y update
-yum -y install nano wget perl tar net-tools bzip2
+#更新系统和依赖
+'yum -y update'
+'yum -y install nano wget perl tar net-tools bzip2'
 添加用户安装TS
 使用普通用户权限运行TeamSpeak，隔离ts服务端与其他系统服务
 
